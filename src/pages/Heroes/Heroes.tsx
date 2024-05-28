@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Hero } from '../../types/hero';
 import HeroCard from '../../components/HeroCard/HeroCard';
-import { getHeroesByLetter } from '../../api/hero';
 import arrayOfLetters from './utils';
 import Loader from '../../components/Loader/Loader';
+import { useGetHeroesByLetter } from '../../hooks/useGetHeroesByLetter';
 
 const Heroes = () => {
   const [selectedLetter, setSelectedLetter] = useState('a');
-  const [heroes, setHeroes] = useState<Hero[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { heroes, loading, error, load } = useGetHeroesByLetter();
 
   useEffect(() => {
     console.log('Création uniquement - []');
@@ -22,21 +19,8 @@ const Heroes = () => {
     console.log(
       'Création ET mise à jour de la lettre séléctionnée - [selectedLetter: ${selectedLetter}]',
     );
-    const load = async () => {
-      setLoading(true);
-      setHeroes(null);
-      try {
-        const data = await getHeroesByLetter(selectedLetter);
-        setHeroes(data);
-      } catch {
-        setError('Problem during fetching data')
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
+    load(selectedLetter);
     return () => {
-      // AbortSignal of fetch request
       console.log(`Déstruction - [selectedLetter: ${selectedLetter}]`);
     };
   }, [selectedLetter]);
@@ -49,8 +33,8 @@ const Heroes = () => {
   };
   return (
     <section>
-      <h1 className='uppercase text-3xl font-thin tracking-widest text-center my-4'>Heroes</h1>
-      <ul className='flex justify-center gap-2 font-semibold uppercase'>
+      <h1 className='uppercase text-5xl font-thin tracking-widest text-center my-4'>Heroes</h1>
+      <ul className='flex justify-center gap-2 font-semibold uppercase mb-8'>
         {arrayOfLetters.map((letter) => (
           <li
             key={letter}
