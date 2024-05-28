@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import HeroCard from '../../components/HeroCard/HeroCard';
 import arrayOfLetters from './utils';
 import Loader from '../../components/Loader/Loader';
 import { useGetHeroesByLetter } from '../../hooks/useGetHeroesByLetter';
 
 const Heroes = () => {
+  const mounterRef = useRef(false);
   const [selectedLetter, setSelectedLetter] = useState('a');
   const { heroes, loading, error, load } = useGetHeroesByLetter();
 
@@ -14,6 +15,13 @@ const Heroes = () => {
       console.log('Déstruction - []');
     };
   }, []);
+
+  useEffect(() => {
+    if (mounterRef.current) {
+      console.log('Uniquement mise à jour de la lettre séléctionnée');
+    }
+    mounterRef.current = true;
+  }, [selectedLetter]);
 
   useEffect(() => {
     console.log(
