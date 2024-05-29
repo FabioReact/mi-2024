@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../context/auth-context';
 
 const schema = z
   .object({
@@ -17,7 +18,8 @@ const schema = z
 type Inputs = z.infer<typeof schema>;
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { register: authRegister } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -26,6 +28,7 @@ const Register = () => {
 
   const onRegister: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    authRegister({ email: data.email, password: data.password });
     navigate('/profile');
   };
 
