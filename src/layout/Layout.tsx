@@ -1,18 +1,16 @@
-// rafce
-
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const Layout = () => {
   const navElement = [
     { name: 'Home', path: '/' },
-    { name: 'Heroes', path: '' },
-    { name: 'Login', path: '' },
-    { name: 'Register', path: '' },
+    { name: 'Heroes', path: '/heroes' },
+    { name: 'Login', path: '/login' },
+    { name: 'Register', path: '/register' },
   ];
   return (
     <>
       <nav>
-        <ul>
+        <ul className='flex justify-center gap-4'>
           {navElement.map((element, index) => (
             <li key={index}>
               <NavLink
@@ -25,6 +23,7 @@ const Layout = () => {
           ))}
         </ul>
       </nav>
+      <Outlet />
     </>
   );
 };
