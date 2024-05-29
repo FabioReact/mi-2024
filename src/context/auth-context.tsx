@@ -1,13 +1,12 @@
 import { ReactElement, createContext, useContext, useState } from 'react';
-import { registerUser } from '../api/user';
+import { loginUser, registerUser } from '../api/user';
+import { UserRequest } from '../types/user';
 
 type AuthContextType = {
   email: string;
   token: string | null;
   connected: boolean;
-  // eslint-disable-next-line no-unused-vars
-  login: ({ email }: { email: string }) => void;
-  // eslint-disable-next-line no-unused-vars
+  login: ({ email, password }: UserRequest) => Promise<{ success: boolean }>;
   register: ({ email, password }: { email: string, password: string }) => void;
 };
 
@@ -27,14 +26,21 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     token: null,
     connected: false,
   });
-  const login = ({ email }: Pick<AuthContextState, 'email'>) => {
+
+  const login = async ({ email, password }: UserRequest) => {
+    const response = await loginUser({ email, password })
+    if ('error' in response) {
+      return { success: false };
+    }
     setUser({
       email,
-      token: 'y',
+      token: response.token,
       connected: true,
     });
+    return { success: true };
   };
-  const register = async ({ email, password }: {email: string, password: string}) => {
+
+  const register = async ({ email, password }: UserRequest) => {
     const { accessToken } = await registerUser({ email, password });
     setUser({
       email,
@@ -42,6 +48,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       connected: true,
     });
   };
+
   return <AuthContext.Provider value={{ ...user, login, register }}>{children}</AuthContext.Provider>;
 };
 

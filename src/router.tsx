@@ -5,6 +5,7 @@ import Layout from "./layout/Layout";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
+import PrivateRoute from "./hoc/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -27,9 +28,14 @@ const router = createBrowserRouter([
           Component: Register
         },
         {
-          path: "profile",
-          Component: Profile
-        },
+          element: <PrivateRoute />,
+          children: [
+            {
+              path: "profile",
+              Component: Profile
+            },
+          ]
+        }
       ]
     },
   ]);
