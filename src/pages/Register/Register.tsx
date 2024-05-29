@@ -21,7 +21,6 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(schema) });
-  console.log(errors);
 
   const onRegister: SubmitHandler<Inputs> = (data) => {
     console.log(data);
