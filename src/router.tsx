@@ -4,6 +4,7 @@ import Heroes from "./pages/Heroes/Heroes";
 import Layout from "./layout/Layout";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         {
           path: "register",
           Component: Register
+        },
+        {
+          path: "profile",
+          Component: Profile
         },
       ]
     },

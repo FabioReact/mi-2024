@@ -4,6 +4,7 @@ const Layout = () => {
   const navElement = [
     { name: 'Home', path: '/' },
     { name: 'Heroes', path: '/heroes' },
+    { name: 'Profile', path: '/profile' },
     { name: 'Login', path: '/login' },
     { name: 'Register', path: '/register' },
   ];

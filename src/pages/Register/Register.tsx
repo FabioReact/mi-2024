@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ErrorMessage } from '@hookform/error-message';
+import { useNavigate } from 'react-router-dom';
 
 const schema = z
   .object({
@@ -16,6 +17,7 @@ const schema = z
 type Inputs = z.infer<typeof schema>;
 
 const Register = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -24,6 +26,7 @@ const Register = () => {
 
   const onRegister: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    navigate('/profile');
   };
 
   return (
