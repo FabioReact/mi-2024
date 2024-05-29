@@ -1,14 +1,24 @@
-import { useCounter } from '../../hooks/useCounter';
+import { FormEvent, useRef } from 'react';
 
 const Login = () => {
-  const { counter, increment, decrement, reset } = useCounter(15);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const onLogin = (event: FormEvent) => {
+    event.preventDefault();
+    console.log(emailRef.current?.value, passwordRef.current?.value);
+  };
+
   return (
     <section>
       <h1>Login</h1>
-      <p>Counter: {counter}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
+      <form onSubmit={onLogin}>
+        <label htmlFor='email'>Email</label>
+        <input ref={emailRef} type='email' id='email' name='email' />
+        <label htmlFor='password'>Password</label>
+        <input ref={passwordRef} type='password' id='password' name='password' />
+        <button>Login</button>
+      </form>
     </section>
   );
 };
