@@ -1,6 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import { useAuthContext } from '../../context/auth-context';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
 
 const Login = () => {
   const { login } = useAuthContext();

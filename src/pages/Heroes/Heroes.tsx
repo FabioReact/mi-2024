@@ -41,7 +41,7 @@ const Heroes = () => {
   };
   return (
     <section>
-      <h1 className='uppercase text-5xl font-thin tracking-widest text-center my-4'>Heroes</h1>
+      <h1>Heroes</h1>
       <ul className='flex justify-center gap-2 font-semibold uppercase mb-8'>
         {arrayOfLetters.map((letter) => (
           <li
