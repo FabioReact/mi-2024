@@ -12,6 +12,7 @@ const Layout = () => {
   const commonLinks = [
     { name: 'Home', path: '/', visibility: LinkVisibility.Public },
     { name: 'Heroes', path: '/heroes', visibility: LinkVisibility.Public },
+    { name: 'Search', path: '/search', visibility: LinkVisibility.Public },
     { name: 'Profile', path: '/profile', visibility: LinkVisibility.Authenticated },
     { name: 'Login', path: '/login', visibility: LinkVisibility.NotAuthenticated },
     { name: 'Register', path: '/register', visibility: LinkVisibility.NotAuthenticated },
