@@ -1,12 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Heroes from './pages/Heroes/Heroes';
-import Layout from './layout/Layout';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import Profile from './pages/Profile/Profile';
-import PrivateRoute from './hoc/PrivateRoute';
-import Search from './pages/Search/Search';
+import { lazy } from 'react';
+
+const Layout = lazy(() => import('./layout/Layout'));
+const Login = lazy(() => import('./pages/Login/Login'));
+const Register = lazy(() => import('./pages/Register/Register'));
+const Profile = lazy(() => import('./pages/Profile/Profile'));
+const PrivateRoute = lazy(() => import('./hoc/PrivateRoute'));
+const Search = lazy(() => import('./pages/Search/Search'));
+const Battle = lazy(() => import('./pages/Battle/Battle'));
+const Home = lazy(() => import('./pages/Home/Home'));
+const Heroes = lazy(() => import('./pages/Heroes/Heroes'));
+const Optimisations = lazy(() => import('./pages/Optimisations/Optimisations'));
 
 const router = createBrowserRouter([
   {
@@ -19,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: 'heroes',
         Component: Heroes,
+      },
+      {
+        path: 'battle',
+        Component: Battle,
+      },
+      {
+        path: 'optimisations',
+        Component: Optimisations,
       },
       {
         path: 'search',

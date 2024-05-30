@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import HeroCard from '../../components/HeroCard/HeroCard';
+import { lazy, useEffect, useRef, useState } from 'react';
 import arrayOfLetters from './utils';
 import Loader from '../../components/Loader/Loader';
 import { useGetHeroesByLetter } from '../../hooks/useGetHeroesByLetter';
+
+const HeroCard = lazy(() => import('../../components/HeroCard/HeroCard'))
 
 const Heroes = () => {
   const mounterRef = useRef(false);
