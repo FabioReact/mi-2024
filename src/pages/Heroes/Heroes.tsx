@@ -2,13 +2,15 @@ import { lazy, useEffect, useRef, useState } from 'react';
 import arrayOfLetters from './utils';
 import Loader from '../../components/Loader/Loader';
 import { useGetHeroesByLetter } from '../../hooks/useGetHeroesByLetter';
+import { useGetHeroesByLetterQuery, useLazyGetHeroesByLetterQuery } from '../../redux/services/heroes';
 
 const HeroCard = lazy(() => import('../../components/HeroCard/HeroCard'))
 
 const Heroes = () => {
   const mounterRef = useRef(false);
   const [selectedLetter, setSelectedLetter] = useState('a');
-  const { heroes, loading, error, load } = useGetHeroesByLetter();
+  // const { heroes, loading, error, load } = useGetHeroesByLetter();
+  const [load, { data: heroes, isFetching: loading, error }] = useLazyGetHeroesByLetterQuery()
 
   useEffect(() => {
     console.log('Création uniquement - []');
@@ -54,9 +56,9 @@ const Heroes = () => {
           </li>
         ))}
       </ul>
-      {error && <p className='text-red-500'>{error}</p> }
+      {error && <p className='text-red-500'>An Error occured</p> }
       {loading && <Loader />}
-      <div className='flex flex-wrap justify-center gap-4'>{heroes && heroes.map((hero) => <HeroCard key={hero.id} hero={hero} />)}</div>
+      <div className='flex flex-wrap justify-center gap-4'>{heroes && !loading && heroes.map((hero) => <HeroCard key={hero.id} hero={hero} />)}</div>
     </section>
   );
 };

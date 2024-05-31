@@ -1,9 +1,13 @@
 import { useAuthContext } from '../../context/auth-context';
 import { useFavContext } from '../../context/fav-context';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getFavorites } from '../../redux/reducers/heroesSlice';
 
 const Profile = () => {
   const { email, token } = useAuthContext();
-  const { favorites } = useFavContext();
+  // const { favorites } = useFavContext();
+  // useAppDispatch()
+  const favorites = useAppSelector(getFavorites)
   return (
     <section>
       <h1>Profile</h1>

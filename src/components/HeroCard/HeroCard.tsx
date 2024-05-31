@@ -1,5 +1,6 @@
 import { useAuthContext } from '../../context/auth-context';
-import { useFavContext } from '../../context/fav-context';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addHeroToFavorites, deleteHeroFromFavorites, getFavorites } from '../../redux/reducers/heroesSlice';
 import { Hero } from '../../types/hero';
 import { Star } from '../Star/Star';
 
@@ -8,7 +9,8 @@ type Props = {
 };
 
 const HeroCard = ({ hero }: Props) => {
-  const { addHeroToFav, deleteHeroFromFav, isFavorite } = useFavContext();
+  const dispatch = useAppDispatch()
+  const favorites = useAppSelector(getFavorites)
   const { connected } = useAuthContext();
   return (
     <div className='max-w-xs rounded overflow-hidden shadow-lg'>
@@ -23,10 +25,10 @@ const HeroCard = ({ hero }: Props) => {
         <p className='font-bold text-xl'>
           {hero.name} <span className='text-gray-600 text-base'>#{hero.id}</span>
           <Star
-            filled={isFavorite(hero.id)}
+            filled={!!favorites.find(fav => fav.id === hero.id)}
             visible={connected}
-            onFill={() => addHeroToFav(hero)}
-            onUnfill={() => deleteHeroFromFav(hero.id)}
+            onFill={() => dispatch(addHeroToFavorites(hero))}
+            onUnfill={() =>dispatch(deleteHeroFromFavorites(hero.id))}
           />
         </p>
         <p className='text-lg mb-2'>{hero.biography['full-name']}</p>
